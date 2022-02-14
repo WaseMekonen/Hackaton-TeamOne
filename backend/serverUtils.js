@@ -3,7 +3,7 @@ const mongoClient = mongoDB.MongoClient;
 // const objectId = mongoDB.ObjectId;
 const url = "mongodb://localhost:27017" || process.env.MONGOURL;
 
-const getMovies = () => {
+const getMovies = (res) => {
   mongoClient.connect(url, (err, db) => {
     if (err) {
       console.log(err);
@@ -15,6 +15,7 @@ const getMovies = () => {
       .find({})
       .toArray(function (err, movies) {
         if (err) throw err;
+        res.send(movies);
         console.log(movies);
         db.close();
       });
