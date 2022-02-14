@@ -21,4 +21,23 @@ const getMovies = () => {
   });
 };
 
-module.exports(getMovies);
+
+const getTvShows = ()=>{
+  mongoClient.connect(url, (err, db) =>{
+    if (err) {
+      console.log(err);
+    }
+    const database = db.db("Netflix");
+
+    database
+    .collection("tvShows")
+    .find({})
+    .toArray(function (err, tvShows){
+      if(err) throw err;
+      console.log(tvShows);
+      db.close();
+    });
+  });
+};
+
+module.exports(getMovies, getTvShows);
