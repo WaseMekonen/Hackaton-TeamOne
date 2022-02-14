@@ -1,7 +1,7 @@
 const mongoDB = require("mongodb");
 const mongoClient = mongoDB.MongoClient;
 // const objectId = mongoDB.ObjectId;
-const url = "mongodb://localhost:27017";
+const url = "mongodb://localhost:27017" || process.env.MONGOURL;
 
 const getMovies = () => {
   mongoClient.connect(url, (err, db) => {
