@@ -49,7 +49,7 @@ function liveUpdate(){
         let newvalues = { $set: {currentStation:data[i].currentStation, numOfPassenger:data[i].numOfPassenger } };
         dbo.collection("lines").updateOne(myquery, newvalues, function(err, res) {
           if (err) throw err;
-          console.log("1 document updated");
+          console.log(data[i]);
           db.close();
         });
       });

@@ -4,11 +4,10 @@ content-type: application/json
 
 {
    
-"favorites" : ["245", "123"]
+"favorites" : [8, 12]
 }
 
 ###
 GET http://localhost:8080/users/620d00903b70d0afa50c9755
 
 ###
-DELETE 
