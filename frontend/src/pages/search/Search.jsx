@@ -1,25 +1,23 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import SearchLine from '../../components/SearchLine'
 import styles from './search.module.css'
 
 export default function Search({ favorites, setFavorites, lines, setLines }) {
   const [redirectToFavorites, setRedirectToFavorites] = useState(false)
-  // const arr = [{ busLine: "126" }, { busLine: "6" }, { busLine: "16" }, { busLine: "12" }]
 
-useEffect(() => {getMostActiveLines()}, [])
+  useEffect(() => { getMostActiveLines() }, [])
 
   function getMostActiveLines() {
-    axios.get('/lines')
+    axios.get('/mostPopularLines')
       .then((response) => {
         console.log(response); setLines(response.data);
-        // Math.floor(Math.random() * 5)
       })
       .catch((error) => console.log(error))
   }
-  
-// console.log(lines);
+
+  // console.log(lines);
   // function addToFavorites() {
   //   axios.patch(`/users/localId}`,
 
@@ -42,7 +40,14 @@ useEffect(() => {getMostActiveLines()}, [])
         <SearchLine />
       </div>
       <div>
-        <p>{lines}</p>
+        {lines.map((line, i) => {
+          return (
+            <>
+            <p>{line.busLine}</p>
+            <button onClick={() => setRedirectToFavorites(true)}>add</button>
+            </>
+          )
+        })}
       </div>
     </div>
   )
