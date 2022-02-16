@@ -1,17 +1,16 @@
 const express = require("express"),
-  app = express(),
-  { getMovies } = require("serverUtils");
+  app = express();
+require("dotenv").config();
+const userRoutes = require("./routes/users");
+const linesRoutes = require('./routes/lines')
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
+app.use("/users", userRoutes);
 
-app.get("/movies", (req, res) => {
-    getMovies(res)
-});
-const PORT = 5000;
+app.use("/lines", linesRoutes);
+
+const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`app is listening on PORT ${PORT}`);
 });
