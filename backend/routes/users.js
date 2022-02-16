@@ -1,6 +1,7 @@
 const router = require("express").Router()
-const { getUser, insertNewLineToUserFavorites, 
-    // deleteLineFromUserFavorites 
+const { getUser, insertNewLineToUserFavorites,
+    deleteLineFromUserFavorites,
+    insertNewUser
 } = require("../controllers/users");
 
 
@@ -13,7 +14,12 @@ router.patch("/:localId", (req, res) => {
     insertNewLineToUserFavorites(req, res);
 });
 
-router.delete('/:id', (req, res) => {
+router.patch('/delete/:localId', (req, res) => {
     deleteLineFromUserFavorites(req, res);
-})
+});
+
+router.post('/', (req, res) => {
+    insertNewUser(req, res);
+});
+
 module.exports = router;

@@ -11,4 +11,11 @@ content-type: application/json
 GET http://localhost:8080/users/620d00903b70d0afa50c9755
 
 ###
-DELETE 
+POST   http://localhost:8080/users
+content-type: application/json
+
+{
+
+"favorites" : [],
+"localId" : "134343434"
+}

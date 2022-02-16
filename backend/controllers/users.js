@@ -41,8 +41,45 @@ const insertNewLineToUserFavorites = (req, res) => {
     })
 }
 
+
+
+function deleteLineFromUserFavorites(req, res) {
+    mongoClient.connect(url, (err, db) => {
+        if (err) throw err;
+        const userId = req.params.localId,
+            userUpdatedList = req.body,
+            database = db.db(dbName);
+        database
+            .collection('users')
+            .findOneAndUpdate(
+                { localId: userId },
+                { $set: userUpdatedList },
+                function (err, updatedFavorites) {
+                    if (err) throw err
+                    res.status(201).send(updatedFavorites);
+                    db.close();
+                }
+            )
+    })
+}
+
+function insertNewUser(req, res) {
+    mongoClient.connect(url, (err, db) => {
+        if (err) throw err;
+        const user = req.body;
+        const database = db.db(dbName);
+        database.collection('users').insertOne(user, (err, newUser) => {
+            if (err) throw err;
+            res.status(201).send(newUser);
+            console.log({ user });
+            db.close();
+        });
+    });
+}
+
 module.exports = {
     getUser,
     insertNewLineToUserFavorites,
-    // deleteLineFromUserFavorites,
+    deleteLineFromUserFavorites,
+    insertNewUser
 }
