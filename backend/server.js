@@ -1,7 +1,8 @@
 const express = require("express"),
   app = express();
 require("dotenv").config();
-const { getLine, getLines, getUser, insertNewLineToUserFavorites } = require("./serverUtils");
+const { getLine, getLines } = require("./controllers/lines");
+const { getUser, insertNewLineToUserFavorites } = require("./controllers/users");
 
 app.use(express.json());
 
@@ -24,7 +25,6 @@ app.get("/users/:localId", (req, res) => {
 app.patch("/users/:id", (req, res) => {
   insertNewLineToUserFavorites(req, res);
 })
-
 
 const PORT = 8080;
 app.listen(PORT, () => {
