@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 import styles from "./favorites.module.css";
+import axios from "axios";
 
 export default function Favorites() {
   const [redirectToDetails, setRedirectToDetails] = useState(false);
