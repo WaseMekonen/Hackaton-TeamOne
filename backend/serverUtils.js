@@ -1,14 +1,15 @@
 const mongoDB = require("mongodb");
 const mongoClient = mongoDB.MongoClient;
 // const objectId = mongoDB.ObjectId;
-const url = "mongodb://localhost:27017" || process.env.MONGOURL;
-const database = db.db("EASYBUSY");
+const url = process.env.MONGOURL;
+const dbName = "esaybusy";
 
 const getLines = (res) => {
   mongoClient.connect(url, (err, db) => {
     if (err) {
       console.log(err);
     }
+    const database = db.db(dbName);
     database
       .collection("lines")
       .find({})
@@ -27,6 +28,7 @@ const getUser = ()=>{
     if (err) {
       console.log(err);
     }
+    const database = db.db(dbName);
     database
     .collection("users")
     .findOne({})
@@ -38,4 +40,7 @@ const getUser = ()=>{
   });
 };
 
-module.exports(getLines, getUser);
+module.exports={
+  getLines,
+   getUser
+  }
