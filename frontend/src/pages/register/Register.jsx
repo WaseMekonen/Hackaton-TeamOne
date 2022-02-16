@@ -47,9 +47,9 @@ export default function Register({ setAuth }) {
 
   }
 
-  // if (redirectToSearch) {
-  //   return <Redirect to='/Search' />
-  // }
+  if (redirectToSearch) {
+    return <Redirect to='/Search' />
+  }
 
   return (
     <div>
