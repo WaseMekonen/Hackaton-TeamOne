@@ -1,0 +1,96 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.DetailsPage {
+  width: 100vw;
+  height: 1000px;
+  background-color: rgb(158, 104, 104);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mainCon {
+  width: 50vw;
+  height: 800px;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+}
+.searchCont {
+  background-color: rgb(253, 253, 253);
+  width: 80%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+}
+.search {
+  width: 100%;
+  height: 80%;
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.search input {
+  width: 40%;
+  height: 50%;
+  border-radius: 12px;
+}
+.lineDetailsCont {
+  background-color: rgb(167, 166, 165);
+  height: 8%;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.stationCont {
+  background-color: rgb(255, 187, 0);
+  height: 8%;
+  width: 80%;
+}
+.mapCont {
+  background-color: rgb(243, 243, 243);
+  height: 48%;
+  width: 80%;
+}
+.statusCont {
+  background-color: rgb(114, 114, 114);
+  height: 18%;
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.statusEmpty {
+  width: 15%;
+  height: 45%;
+  background-color: green;
+  border: 1px solid black;
+}
+.statusNormal {
+  width: 15%;
+  height: 45%;
+  background-color: rgb(253, 238, 21);
+  border: 1px solid black;
+}
+.statusFull {
+  width: 15%;
+  height: 45%;
+  background-color: rgb(255, 155, 5);
+  border: 1px solid black;
+}
+.statusCrowded {
+  width: 15%;
+  height: 45%;
+  background-color: rgb(255, 0, 0);
+  border: 1px solid black;
+}
