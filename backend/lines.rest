@@ -1,4 +1,4 @@
-GET http://localhost:8080/lines
+GET http://localhost:8080/lines/PopularLines
 ###
 GET http://localhost:8080/lines/126
 
