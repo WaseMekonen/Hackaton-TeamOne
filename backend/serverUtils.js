@@ -22,6 +22,25 @@ const getLines = (res) => {
   });
 };
 
+const getLine = (res,req) => {
+  console.log( {"busLine":Number(req.params.busLine)});
+  const userLineChoice = {"busLine":Number(req.params.busLine)}
+  mongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err);
+    }
+    const database = db.db(dbName);
+    database
+      .collection("lines")
+      .findOne(userLineChoice, function (err, line) {
+        if (err) throw err;
+        res.send(line);
+        console.log(line);
+        db.close();
+      });
+  });
+};
+
 
 const getUser = ()=>{
   mongoClient.connect(url, (err, db) =>{
@@ -42,5 +61,6 @@ const getUser = ()=>{
 
 module.exports={
   getLines,
-   getUser
+  getLine,
+  getUser
   }

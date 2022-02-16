@@ -1,7 +1,7 @@
 const express = require("express"),
 app = express();
 require ("dotenv").config();
-const { getLines,getUser } = require("./serverUtils");
+const { getLines,getUser, getLine } = require("./serverUtils");
 
 app.use(express.json());
 
@@ -11,6 +11,10 @@ app.get("/", (req, res) => {
 
 app.get("/lines", (req, res) => {
   getLines(res);
+});
+
+app.get("/line/:busLine", (req, res) => {
+  getLine(res,req);
 });
 
 app.get("/users/:localId", (req, res) => {
