@@ -29,6 +29,7 @@ export default function Register({ setAuth }) {
         console.log(response)
         setRedirectToSearch(true)
         localStorage.setItem("userData", JSON.stringify(response.data))
+        newRegister(response.data.localId)
       })
       .catch(function (error) {
         setErrorFromServer(error);
@@ -36,6 +37,15 @@ export default function Register({ setAuth }) {
         console.log(error);
       });
   };
+
+  function newRegister(localId){
+    const newUser = {localId,favorites:[]};
+
+    axios.post("/users",newUser)
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+
+  }
 
   if (redirectToSearch) {
     return <Redirect to='/Search' />
@@ -60,9 +70,9 @@ export default function Register({ setAuth }) {
       >
         <input type="email" placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
         <br></br>
-        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} autoComplete="on"/>
         <br></br>
-        <input type="password" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} />
+        <input type="password" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} autoComplete="on"/>
         <br></br>
         <input type="submit" value="Register" disabled={!email || !password || !confirmPassword} />
       </form>
