@@ -22,6 +22,25 @@ const getLines = (res) => {
   });
 };
 
+
+const getMostPopularLines = (res) => {
+  mongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err);
+    }
+    const database = db.db(dbName);
+    database
+      .collection("mostPopularLines")
+      .find({})
+      .toArray(function (err, lines) {
+        if (err) throw err;
+        res.send(lines);
+        console.log(lines);
+        db.close();
+      });
+  });
+};
+
 const getLine = (res, req) => {
   console.log({ "busLine": Number(req.params.busLine) });
   const userLineChoice = { "busLine": Number(req.params.busLine) }
@@ -43,5 +62,6 @@ const getLine = (res, req) => {
 
 module.exports = {
   getLines,
-  getLine
+  getLine,
+  getMostPopularLines
 }
