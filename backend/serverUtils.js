@@ -9,7 +9,6 @@ const getLines = (res) => {
     if (err) {
       console.log(err);
     }
-
     database
       .collection("lines")
       .find({})
@@ -28,8 +27,6 @@ const getUser = ()=>{
     if (err) {
       console.log(err);
     }
-
-
     database
     .collection("users")
     .findOne({})
