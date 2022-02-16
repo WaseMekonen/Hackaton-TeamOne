@@ -11,7 +11,6 @@ export default function Register({ setAuth }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorFromServer, setErrorFromServer] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isDisable, setIsDisable] = useState(false);
   const [redirectToSearch, setRedirectToSearch] = useState(false);
 
   function register() {
@@ -38,39 +37,39 @@ export default function Register({ setAuth }) {
       });
   };
 
+  if (redirectToSearch) {
+    return <Redirect to='/Search' />
+  }
 
   return (
     <div>
-      <div>
-        {redirectToSearch ? <Redirect to='/Search' /> : ""}
-        <h1>Sign Up</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (password.length < 6) {
-              alert("password should be at least 6 characters");
-            }
-            else if (password !== confirmPassword) {
-              alert("password must be the same as confirm password");
-            }
-            else {
-              register();
-            }
-          }}
-        >
-          <input type="email" placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
-          <br></br>
-          <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-          <br></br>
-          <input type="password" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} />
-          <br></br>
-          <input type="submit" value="Register" disabled={!email || !password || !confirmPassword} />
-        </form>
-        {loading ? <SpinnerCircular /> : ""}
-        <p style={{ color: "red" }}>
-          {errorFromServer ? "Error From Server" : ""}
-        </p>
-      </div>
+      <h1>Sign Up</h1>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (password.length < 6) {
+            alert("password should be at least 6 characters");
+          }
+          else if (password !== confirmPassword) {
+            alert("password must be the same as confirm password");
+          }
+          else {
+            register();
+          }
+        }}
+      >
+        <input type="email" placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
+        <br></br>
+        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+        <br></br>
+        <input type="password" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} />
+        <br></br>
+        <input type="submit" value="Register" disabled={!email || !password || !confirmPassword} />
+      </form>
+      {loading ? <SpinnerCircular /> : ""}
+      <p style={{ color: "red" }}>
+        {errorFromServer ? "Error From Server" : ""}
+      </p>
     </div>
   )
 }
