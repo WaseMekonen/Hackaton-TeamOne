@@ -5,7 +5,6 @@ import React from "react";
 import styles from "./details.module.css";
 
 export default function Details() {
-  const [lines, setLines] = useState([]);
   // const [error, setError] = useState("");
 
   // console.log(lines);
