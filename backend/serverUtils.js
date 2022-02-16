@@ -22,9 +22,9 @@ const getLines = (res) => {
   });
 };
 
-const getLine = (res,req) => {
-  console.log( {"busLine":Number(req.params.busLine)});
-  const userLineChoice = {"busLine":Number(req.params.busLine)}
+const getLine = (res, req) => {
+  console.log({ "busLine": Number(req.params.busLine) });
+  const userLineChoice = { "busLine": Number(req.params.busLine) }
   mongoClient.connect(url, (err, db) => {
     if (err) {
       console.log(err);
@@ -70,7 +70,7 @@ const insertNewLineToUserFavorites = (req, res) => {
       database = db.db(dbName);
     database.collection("users").findOneAndUpdate(
       { _id: objectId(userId) },
-      { $set: userUpdatedList  },
+      { $set: userUpdatedList },
       function (err, updatedFavorites) {
         if (err) {
           throw err
@@ -84,12 +84,7 @@ const insertNewLineToUserFavorites = (req, res) => {
 
 module.exports = {
   getLines,
-<<<<<<< HEAD
   getLine,
-  getUser
-  }
-=======
   getUser,
   insertNewLineToUserFavorites
 }
->>>>>>> addlinetofavorites
