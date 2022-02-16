@@ -32,6 +32,7 @@ function liveUpdate(){
  
 
   const shafel = setInterval(()=>{
+
     for (let i = 0; i < data.length; i++) {
       data[i].numOfPassenger = Math.floor((Math.random() * 55)+0)
       data[i].currentStation++
@@ -43,9 +44,9 @@ function liveUpdate(){
     for (let i = 0; i < data.length; i++) {
       mongoClient.connect(url, function(err, db) {
         if (err) throw err;
-        var dbo = db.db(dbName);
-        var myquery = { busLine: data[i].busLine };
-        var newvalues = { $set: {currentStation:data[i].currentStation, numOfPassenger:data[i].numOfPassenger } };
+        let dbo = db.db(dbName);
+        let myquery = { busLine: data[i].busLine };
+        let newvalues = { $set: {currentStation:data[i].currentStation, numOfPassenger:data[i].numOfPassenger } };
         dbo.collection("lines").updateOne(myquery, newvalues, function(err, res) {
           if (err) throw err;
           console.log("1 document updated");

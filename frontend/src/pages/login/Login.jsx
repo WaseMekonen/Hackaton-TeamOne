@@ -10,7 +10,6 @@ export default function Login({ setAuth }) {
     const [password, setPassword] = useState("");
     const [errorFromServer, setErrorFromServer] = useState("");
     const [loading, setLoading] = useState(false);
-    const [isDisable, setIsDisable] = useState(false);
     const [redirectToSearch, setRedirectToSearch] = useState(false);
 
     function logIn() {
@@ -31,9 +30,12 @@ export default function Login({ setAuth }) {
             .catch(function (error) { setErrorFromServer(error); setLoading(false) })
     }
 
+    if (redirectToSearch) {
+        return <Redirect to='/Search' />
+    }
+
     return (
         <div>
-            {redirectToSearch ? <Redirect to='/Search' /> : ""}
             <h1>Sign In</h1>
             <form onSubmit={(e) => {
                 e.preventDefault();
