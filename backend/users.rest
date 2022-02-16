@@ -4,7 +4,7 @@ content-type: application/json
 
 {
    
-"favorites" : ["245", "123"]
+"favorites" : [8, 12]
 }
 
 ###
@@ -17,5 +17,7 @@ content-type: application/json
 {
 
 "favorites" : [],
-"localId" : "134343434"
+"localId" : "134343434",
 }
+
+###
