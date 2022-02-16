@@ -1,6 +1,6 @@
 const mongoDB = require("mongodb");
 const mongoClient = mongoDB.MongoClient;
-// const objectId = mongoDB.ObjectId;
+const objectId = mongoDB.ObjectId;
 const url = process.env.MONGOURL;
 const dbName = "esaybusy";
 
@@ -23,24 +23,48 @@ const getLines = (res) => {
 };
 
 
-const getUser = ()=>{
-  mongoClient.connect(url, (err, db) =>{
+const getUser = () => {
+  mongoClient.connect(url, (err, db) => {
     if (err) {
       console.log(err);
     }
     const database = db.db(dbName);
     database
-    .collection("users")
-    .findOne({})
-    .toArray(function (err, user){
-      if(err) throw err;
-      console.log(user);
-      db.close();
-    });
+      .collection("users")
+      .findOne({})
+      .toArray(function (err, user) {
+        if (err) throw err;
+        console.log(user);
+        db.close();
+      });
   });
 };
 
-module.exports={
+const insertNewLineToUserFavorites = (req, res) => {
+  mongoClient.connect(url, (err, db) => {
+    if (err) {
+      throw err;
+    }
+
+    const userId = req.params.id,
+      userUpdatedList = req.body,
+      database = db.db(dbName);
+    database.collection("users").findOneAndUpdate(
+      { _id: objectId(userId) },
+      { $set: userUpdatedList  },
+      function (err, updatedFavorites) {
+        if (err) {
+          throw err
+        }
+        res.status(201).send(updatedFavorites)
+      }
+    )
+
+  })
+}
+
+module.exports = {
   getLines,
-   getUser
-  }
+  getUser,
+  insertNewLineToUserFavorites
+}
