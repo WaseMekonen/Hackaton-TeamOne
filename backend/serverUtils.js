@@ -2,43 +2,43 @@ const mongoDB = require("mongodb");
 const mongoClient = mongoDB.MongoClient;
 // const objectId = mongoDB.ObjectId;
 const url = "mongodb://localhost:27017" || process.env.MONGOURL;
+const database = db.db("EASYBUSY");
 
-const getMovies = (res) => {
+const getLines = (res) => {
   mongoClient.connect(url, (err, db) => {
     if (err) {
       console.log(err);
     }
-    const database = db.db("Netflix");
 
     database
-      .collection("movies")
+      .collection("lines")
       .find({})
-      .toArray(function (err, movies) {
+      .toArray(function (err, lines) {
         if (err) throw err;
-        res.send(movies);
-        console.log(movies);
+        res.send(lines);
+        console.log(lines);
         db.close();
       });
   });
 };
 
 
-const getTvShows = ()=>{
+const getUser = ()=>{
   mongoClient.connect(url, (err, db) =>{
     if (err) {
       console.log(err);
     }
-    const database = db.db("Netflix");
+
 
     database
-    .collection("tvShows")
-    .find({})
-    .toArray(function (err, tvShows){
+    .collection("users")
+    .findOne({})
+    .toArray(function (err, user){
       if(err) throw err;
-      console.log(tvShows);
+      console.log(user);
       db.close();
     });
   });
 };
 
-module.exports(getMovies, getTvShows);
+module.exports(getLines, getUser);

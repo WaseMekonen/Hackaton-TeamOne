@@ -1,6 +1,6 @@
 const express = require("express"),
-  app = express(),
-  { getMovies } = require("serverUtils");
+app = express(),
+{ getLines,getUser } = require(serverUtils);
 
 app.use(express.json());
 
@@ -8,8 +8,8 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.get("/movies", (req, res) => {
-    getMovies(res)
+app.get("/lines", (req, res) => {
+  getLines(res);
 });
 const PORT = 5000;
 app.listen(PORT, () => {
