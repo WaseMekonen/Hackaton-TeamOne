@@ -1,8 +1,10 @@
 const express = require("express"),
   app = express();
 require("dotenv").config();
+require("./refreshData/data").getAllLines();
 const userRoutes = require("./routes/users");
 const linesRoutes = require('./routes/lines')
+
 
 app.use(express.json());
 

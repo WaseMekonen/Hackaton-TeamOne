@@ -1,8 +1,23 @@
 
-PATCH http://localhost:5000/users/620d00903b70d0afa50c9755
-
-Content-Type: application/json
+PATCH http://localhost:8080/users/a1b1
+content-type: application/json
 
 {
-    "favorites": ["marvel", "superman"]
+   
+"favorites" : [8, 12]
 }
+
+###
+GET http://localhost:8080/users/620d00903b70d0afa50c9755
+
+###
+POST   http://localhost:8080/users
+content-type: application/json
+
+{
+
+"favorites" : [],
+"localId" : "134343434",
+}
+
+###
