@@ -15,8 +15,8 @@ export default function Login({ setAuth, setFavorites}) {
     function getUserFavorites(localId) {
         axios.get(`/users/${localId}`)
             .then(function (response) {
-                let data = response.data
-                console.log(data);
+                let data = response.data.favorites
+                setFavorites(data);
             }).catch(function (error) {
                 console.error(error);
             });

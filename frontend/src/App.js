@@ -12,7 +12,7 @@ function App() {
   const [auth, setAuth] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [lines, setLines] = useState([])
-
+  
   
 
   return (
@@ -35,11 +35,11 @@ function App() {
         }
         <Switch>
           <Route exact path="/Search" render={() =><Search favorites={favorites} setFavorites={setFavorites} lines={lines} setLines={setLines} auth={auth}/>} />
-          <Route exact path="/Register" render={() =><Register setAuth={setAuth} />} />
-          <Route exact path="/Login" render={() =><Login setAuth={setAuth} />} />
+          <Route exact path="/Register" render={() =><Register setAuth={setAuth} setFavorites={setFavorites}/>} />
+          <Route exact path="/Login" render={() =><Login setAuth={setAuth} setFavorites={setFavorites}/>} />
           <Route exact path="/Search" render={() =><Search favorites={favorites} setFavorites={setFavorites} lines={lines} setLines={setLines} auth={auth}/>} />
-          <Route exact path="/Details" render={() =><Details />} />
-          <Route exact path="/Favorites" render={() =><Favorites auth={auth} />} />
+          <Route exact path="/Details" render={() =><Details details={details}/>} />
+          <Route exact path="/Favorites" render={() =><Favorites auth={auth} setdetails={setdetails} favorites={favorites} setFavorites={setFavorites} />} />
         </Switch>
       </BrowserRouter>
     </div>

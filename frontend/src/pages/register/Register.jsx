@@ -5,7 +5,7 @@ import { SpinnerCircular } from "spinners-react";
 import { API_KEY } from '../../logic/keys';
 import style from './register.module.css';
 
-export default function Register({ setAuth }) {
+export default function Register({ setAuth,setFavorites }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,7 +26,6 @@ export default function Register({ setAuth }) {
         setLoading(false)
         setErrorFromServer(false);
         setAuth(response.data)
-        console.log(response)
         setRedirectToSearch(true)
         localStorage.setItem("userData", JSON.stringify(response.data))
         newRegister(response.data.localId)
@@ -42,7 +41,7 @@ export default function Register({ setAuth }) {
     const newUser = {localId,favorites:[]};
 
     axios.post("/users",newUser)
-    .then(res=>console.log(res))
+    .then(res=>setFavorites([]))
     .catch(err=>console.log(err))
 
   }
