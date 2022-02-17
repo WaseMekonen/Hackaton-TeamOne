@@ -1,0 +1,12 @@
+.linesContainer {
+    /* background-color: green; */
+    color: white;
+
+}
+
+.container {
+    /* background-image: url('../../public/media/images/2.jpg'); */
+    color: white;
+    margin-top: 5rem;
+    height: 2rem;
+}

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
+// import { FaPlus } from "react-icons/fa"
+// import { AiOutlinePlusCircle } from "react-icons/ai";
 import SearchBar from "../../components/SearchBar";
 
 import styles from "./search.module.css";
@@ -58,7 +60,8 @@ export default function Search({
   };
 
   return (
-    <div>
+    <div className={styles.searchContainer}>
+      <br></br><br></br><br></br><br></br>
       <SearchBar
         setSearch={setSearch}
         getLines={getLines}
@@ -66,13 +69,14 @@ export default function Search({
         search={search}
         setDetails={setDetails}
         setRedirectToDetails={setRedirectToDetails}
-      />
-      <div>
+      /><br></br>
+      <div className={styles.lines}>
         {lines.map((line, i) => {
           return (
-            <div key={i}>
+            <div key={i} className={styles.section}>
               <p>{line.busLine}</p>
               <button
+                className={styles.btn}
                 onClick={() => {
                   if (auth) {
                     addToFavorites(line.busLine);
@@ -81,7 +85,7 @@ export default function Search({
                   }
                 }}
               >
-                add
+                <img className={styles.btnImg} title='Add to favorites' src="/media/images/plus.png"/>
               </button>
             </div>
           );

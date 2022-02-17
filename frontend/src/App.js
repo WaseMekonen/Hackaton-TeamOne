@@ -18,35 +18,37 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        {auth ? (
-          <>
-            <Link to="/Search">Search</Link>
-            <Link to="/Favorites">Favorites</Link>
-            <Link to="/Details">Details</Link>
-            <button
-              title="Log out"
-              onClick={() => {
-                setAuth(null);
-                localStorage.clear();
-              }}
-            >
-              Log out
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/Register">Register</Link>
-            <Link to="/Login">Login</Link>
-            <Link to="/Search">Search</Link>
-            <Link to="/Details">Details</Link>
-          </>
-        )}
+        <nav>
+          {auth ? (
+            <>
+              <Link to="/Search">Search</Link>
+              <Link to="/Favorites">Favorites</Link>
+              <Link to="/Details">Details</Link>
+              <button
+                title="Log out"
+                onClick={() => {
+                  setAuth(null);
+                  localStorage.clear();
+                }}
+              >
+                Log out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/Register">Register</Link>
+              <Link to="/Login">Login</Link>
+              <Link to="/Search">Search</Link>
+              <Link to="/Details">Details</Link>
+            </>
+          )}
+        </nav>
         <Switch>
-          
-          <Route exact path="/Register" render={() =><Register setAuth={setAuth} setFavorites={setFavorites}/>} />
-          <Route exact path="/Login" render={() =><Login setAuth={setAuth} setFavorites={setFavorites}/>} />
-          <Route exact path="/Favorites" render={() =><Favorites auth={auth} setDetails={setDetails} favorites={favorites} setFavorites={setFavorites} />} />
-        
+
+          <Route exact path="/Register" render={() => <Register setAuth={setAuth} setFavorites={setFavorites} />} />
+          <Route exact path="/Login" render={() => <Login setAuth={setAuth} setFavorites={setFavorites} />} />
+          <Route exact path="/Favorites" render={() => <Favorites auth={auth} setDetails={setDetails} favorites={favorites} setFavorites={setFavorites} />} />
+
           <Route
             exact
             path="/Search"
@@ -77,7 +79,7 @@ function App() {
               />
             )}
           />
-          
+
         </Switch>
       </BrowserRouter>
     </div>
