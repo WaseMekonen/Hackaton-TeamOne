@@ -5,7 +5,7 @@ import { SpinnerCircular } from "spinners-react";
 import { API_KEY } from '../../logic/keys'
 import styles from './login.module.css'
 
-export default function Login({ setAuth, auth }) {
+export default function Login({ setAuth, setFavorites}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorFromServer, setErrorFromServer] = useState("");
@@ -19,6 +19,7 @@ export default function Login({ setAuth, auth }) {
     .then(function (response) {
       let data = response.data
       console.log(data);
+      setFavorites(response.data.favorites)
   }).catch(function (error) {
       console.error(error);
   });
