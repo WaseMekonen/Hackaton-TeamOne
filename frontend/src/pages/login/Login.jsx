@@ -12,8 +12,6 @@ export default function Login({ setAuth, setFavorites}) {
     const [loading, setLoading] = useState(false);
     const [redirectToSearch, setRedirectToSearch] = useState(false);
 
-
-
     function getUserFavorites(localId) {
         axios.get(`/users/${localId}`)
             .then(function (response) {
