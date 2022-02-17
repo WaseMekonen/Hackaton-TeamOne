@@ -1,16 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { SpinnerCircular } from "spinners-react";
 import { API_KEY } from '../../logic/keys'
-import styles from './login.module.css'
+import style from './login.module.css'
 
-export default function Login({ setAuth }) {
+export default function Login({ setAuth, setFavorites}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorFromServer, setErrorFromServer] = useState("");
     const [loading, setLoading] = useState(false);
     const [redirectToSearch, setRedirectToSearch] = useState(false);
+
+
+
+    function getUserFavorites(localId) {
+        axios.get(`/users/${localId}`)
+            .then(function (response) {
+                let data = response.data
+                console.log(data);
+            }).catch(function (error) {
+                console.error(error);
+            });
+    }
+
 
     function logIn() {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
@@ -23,6 +36,7 @@ export default function Login({ setAuth }) {
             .then(function (response) {
                 console.log(response)
                 setLoading(false)
+                getUserFavorites(response.data.localId)
                 setAuth(response.data)
                 setRedirectToSearch(true)
                 localStorage.setItem("userData", JSON.stringify(response.data))
@@ -35,21 +49,18 @@ export default function Login({ setAuth }) {
     }
 
     return (
-        <div>
-            <h1>Sign In</h1>
-            <form onSubmit={(e) => {
+        <div className={style.Login}>
+            <form className={style.logInForm} onSubmit={(e) => {
                 e.preventDefault();
                 logIn();
             }}>
-                <input type='email' placeholder="E-mail" onChange={(e) => { setEmail(e.target.value) }} />
-                <br></br>
-                <input type='password' placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
-                <br></br>
-                <input type='submit' value="Log In" disabled={!email || !password} />
+                <h1>Log In</h1>
+                <input className={style.logInInput} type='email' placeholder="E-mail" onChange={(e) => { setEmail(e.target.value) }} />
+                <input className={style.logInInput} type='password' placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
+                <input className={style.button} type='submit' value="Log In" disabled={!email || !password} />
+                <section> {loading ? <SpinnerCircular /> : ""} </section>
+                <p style={{ color: "red" }}>{errorFromServer ? "Error From Server" : ""}</p>
             </form>
-            {loading ? <SpinnerCircular /> : ""}
-            <p style={{ color: "red" }}>{errorFromServer ? "Error From Server" : ""}</p>
         </div>
     )
 }
-

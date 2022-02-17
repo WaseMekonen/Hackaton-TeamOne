@@ -19,7 +19,7 @@ export default function Search({ favorites, setFavorites, lines, setLines, auth,
     let temp = [...favorites];
     temp.push(busLine);
 
-    axios.patch(`/users/${auth.localId}`, { favorites })
+    axios.patch(`/users/${auth.localId}`, { favorites:temp })
       .then((response) => { setFavorites(temp) })
       .catch(error => console.log(error.response))
   }
