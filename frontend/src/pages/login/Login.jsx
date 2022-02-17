@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { SpinnerCircular } from "spinners-react";
 import { API_KEY } from '../../logic/keys'
-import styles from './login.module.css'
+import style from './login.module.css'
 
 export default function Login({ setAuth, auth }) {
     const [email, setEmail] = useState("");
