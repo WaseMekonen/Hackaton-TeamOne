@@ -54,7 +54,7 @@ export default function Login({ setAuth, setFavorites}) {
                 e.preventDefault();
                 logIn();
             }}>
-                <h1>Log In</h1>
+                <h3>Log In</h3>
                 <input className={style.logInInput} type='email' placeholder="E-mail" onChange={(e) => { setEmail(e.target.value) }} />
                 <input className={style.logInInput} type='password' placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
                 <input className={style.button} type='submit' value="Log In" disabled={!email || !password} />

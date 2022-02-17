@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { SpinnerCircular } from "spinners-react";
 import { API_KEY } from '../../logic/keys';
-import styles from './register.module.css';
+import style from './register.module.css';
 
 export default function Register({ setAuth }) {
   const [email, setEmail] = useState("");
@@ -52,9 +52,8 @@ export default function Register({ setAuth }) {
   }
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <form
+    <div className={style.Register}>
+      <form className={style.registerForm}
         onSubmit={(e) => {
           e.preventDefault();
           if (password.length < 6) {
@@ -67,19 +66,15 @@ export default function Register({ setAuth }) {
             register();
           }
         }}
-      >
-        <input type="email" placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
-        <br></br>
-        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} autoComplete="on"/>
-        <br></br>
-        <input type="password" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} autoComplete="on"/>
-        <br></br>
-        <input type="submit" value="Register" disabled={!email || !password || !confirmPassword} />
+        >
+        <h3>Sign Up</h3>
+        <input className={style.registerInput} type="email" placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
+        <input className={style.registerInput} type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} autoComplete="on"/>
+        <input className={style.registerInput} type="password" placeholder="Confirm Password" onChange={(e) => setConfirmPassword(e.target.value)} autoComplete="on"/>
+        <input className={style.button} type="submit" value="Register" disabled={!email || !password || !confirmPassword} />
+      <section>{loading ? <SpinnerCircular /> : ""}</section>
+      <p style={{ color: "red" }}>{errorFromServer ? "Error From Server" : ""}</p>
       </form>
-      {loading ? <SpinnerCircular /> : ""}
-      <p style={{ color: "red" }}>
-        {errorFromServer ? "Error From Server" : ""}
-      </p>
     </div>
   )
 }
