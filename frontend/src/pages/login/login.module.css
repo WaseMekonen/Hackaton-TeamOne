@@ -23,7 +23,7 @@
 }
 
  .logInForm h1{
-    color: rgb(180, 0, 0);
+    color: rgb(240, 187, 126);
 }
  .logInInput{
     border-radius: 0.5rem;
@@ -44,7 +44,7 @@
 
 }
 .button[type="submit" ]{
-    background-color: rgb(180, 0, 0);
+    background-color: rgb(60, 88, 212);
     padding: 1.5rem;
     padding-right: 6.5rem;
     padding-left: 6.5rem;
@@ -62,7 +62,7 @@ a{
 
 @media (max-width:1440px) {
 
-    .Form {
+    .Login {
         display: flex;
         justify-content: center;
         align-items: center;
