@@ -16,7 +16,7 @@ const getLines = (res) => {
       .toArray(function (err, lines) {
         if (err) throw err;
         res.send(lines);
-        console.log(lines);
+        // console.log(lines);
         db.close();
       });
   });
@@ -35,7 +35,7 @@ const getMostPopularLines = (res) => {
       .toArray(function (err, lines) {
         if (err) throw err;
         res.send(lines);
-        console.log(lines);
+        // console.log(lines);
         db.close();
       });
   });
@@ -54,7 +54,7 @@ const getLine = (res, req) => {
       .findOne(userLineChoice, function (err, line) {
         if (err) throw err;
         res.send(line);
-        console.log(line);
+        // console.log(line);
         db.close();
       });
   });

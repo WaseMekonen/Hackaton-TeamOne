@@ -16,14 +16,7 @@ export default function SearchBar({
         placeholder="Search..."
         onChange={(e) => setSearch(Number(e.target.value))}
       />
-      {/* <button
-        onClick={() => {
-          getLines();
-        }}
-      >
-        Search
-      </button> */}
-      <div className={styles.linesContainer}>
+      <div>
         {lines
           .filter((line) => {
             return line.busLine === search;
@@ -35,8 +28,9 @@ export default function SearchBar({
                 onClick={() => {
                   setRedirectToDetails(true);
                   let choosenLine = lines.find((line) => {
-                   return line.busLine === search;
+                    return line.busLine === search;
                   });
+                  console.log({choosenLine});
                   setDetails(choosenLine);
                 }}
               >

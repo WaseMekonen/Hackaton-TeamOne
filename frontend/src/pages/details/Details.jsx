@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import styles from "./details.module.css";
 
 export default function Details({ setDetails, setSearch, details, search }) {
   const [error, setError] = useState("");
-  const [lineDetail, setLineDetail] = useState("");
+  const [lineDetail, setLineDetail] = useState();
+  const [green, setGreen] = useState("");
+  const [yellow, setYellow] = useState("");
+  const [orange, setOrange] = useState("");
+  const [red, setRed] = useState("");
+
+  useEffect(() => {
+    isBusCrowded(details.numOfPassenger);
+    getLineDetails();
+  },[]);
 
   const getLineDetails = () => {
     setInterval(() => {
+      console.log("test1:", details.busLine);
       axios
-        .get(`/lines/${details.busLine}`)
+        .get(`/lines/${Number(details.busLine)}`)
         .then((response) => {
-          setLineDetail(response.data);
-          console.log(response.data);
+          console.log("test2:", details.busLine);
+
+          setDetails(response.data.busLine);
+          console.log("mmm", response.data);
         })
         .catch((err) => {
           setError(err);
@@ -22,24 +34,24 @@ export default function Details({ setDetails, setSearch, details, search }) {
   };
 
   const isBusCrowded = (numOfPassenger) => {
+    console.log({ numOfPassenger });
     if (numOfPassenger <= 12) {
-      return "Bus is Empty";
+      setGreen("Bus is Empty");
     } else if (numOfPassenger <= 25) {
-      return "Bus is Normal";
+      setYellow("Bus is Normal");
     } else if (numOfPassenger < 37) {
-      return "Bus is Full";
+      setOrange("Bus is Full");
+    } else {
+      setRed("Bus is Crowded");
     }
-    return "Bus is Crowded";
   };
-
-  // console.log(isBusCrowded(4));
 
   return (
     <div className={styles.DetailsPage}>
       <div className={styles.mainCon}>
         <section className={styles.searchCont}>
           <div className={styles.search}>
-            <form
+            {/* <form
               onSubmit={(e) => {
                 e.preventDefault();
                 setDetails(search);
@@ -52,7 +64,7 @@ export default function Details({ setDetails, setSearch, details, search }) {
                 }}
               />
               <input type="submit" value="Search" />
-            </form>
+            </form> */}
           </div>
         </section>
         <section className={styles.lineDetailsCont}>
@@ -72,10 +84,10 @@ export default function Details({ setDetails, setSearch, details, search }) {
           {/* <img src={details.images[details]} alt="" /> */}
         </section>
         <section className={styles.statusCont}>
-          <div className={styles.statusEmpty}>Empty</div>
-          <div className={styles.statusNormal}>Normal</div>
-          <div className={styles.statusFull}>Full</div>
-          <div className={styles.statusCrowded}>Crowded</div>
+          <div className={styles.statusEmpty}>{green}</div>
+          <div className={styles.statusNormal}>{yellow}</div>
+          <div className={styles.statusFull}>{orange}</div>
+          <div className={styles.statusCrowded}>{red}</div>
         </section>
       </div>
     </div>
