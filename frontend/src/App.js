@@ -35,13 +35,8 @@ function App() {
         }
         <Switch>
           <Route exact path="/Register" render={() =><Register setAuth={setAuth} />} />
-<<<<<<< HEAD
-          <Route exact path="/Login" render={() =><Login setAuth={setAuth} auth={auth} />} />
-          <Route exact path="/Search" render={() =><Search favorites={favorites} setFavorites={setFavorites} lines={lines} setLines={setLines} />} />
-=======
           <Route exact path="/Login" render={() =><Login setAuth={setAuth} />} />
           <Route exact path="/Search" render={() =><Search favorites={favorites} setFavorites={setFavorites} lines={lines} setLines={setLines} auth={auth}/>} />
->>>>>>> ca76da1f3c22f7423e144b68f72555279df5705e
           <Route exact path="/Details" render={() =><Details />} />
           <Route exact path="/Favorites" render={() =><Favorites auth={auth} />} />
         </Switch>
