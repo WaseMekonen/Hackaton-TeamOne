@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { SpinnerCircular } from "spinners-react";
 import { API_KEY } from '../../logic/keys'
-import styles from './login.module.css'
+import style from './login.module.css'
 
 export default function Login({ setAuth, setFavorites}) {
     const [email, setEmail] = useState("");
@@ -14,16 +14,15 @@ export default function Login({ setAuth, setFavorites}) {
 
 
 
-  function getUserFavorites (localId){
-    axios.get(`/users/${localId}`)
-    .then(function (response) {
-      let data = response.data
-      console.log(data);
-      setFavorites(response.data.favorites)
-  }).catch(function (error) {
-      console.error(error);
-  });
-  }
+    function getUserFavorites(localId) {
+        axios.get(`/users/${localId}`)
+            .then(function (response) {
+                let data = response.data
+                console.log(data);
+            }).catch(function (error) {
+                console.error(error);
+            });
+    }
 
 
     function logIn() {
@@ -50,21 +49,18 @@ export default function Login({ setAuth, setFavorites}) {
     }
 
     return (
-        <div>
-            <h1>Sign In</h1>
-            <form onSubmit={(e) => {
+        <div className={style.Login}>
+            <form className={style.logInForm} onSubmit={(e) => {
                 e.preventDefault();
                 logIn();
             }}>
-                <input type='email' placeholder="E-mail" onChange={(e) => { setEmail(e.target.value) }} />
-                <br></br>
-                <input type='password' placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
-                <br></br>
-                <input type='submit' value="Log In" disabled={!email || !password} />
+                <h1>Log In</h1>
+                <input className={style.logInInput} type='email' placeholder="E-mail" onChange={(e) => { setEmail(e.target.value) }} />
+                <input className={style.logInInput} type='password' placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
+                <input className={style.button} type='submit' value="Log In" disabled={!email || !password} />
+                <section> {loading ? <SpinnerCircular /> : ""} </section>
+                <p style={{ color: "red" }}>{errorFromServer ? "Error From Server" : ""}</p>
             </form>
-            {loading ? <SpinnerCircular /> : ""}
-            <p style={{ color: "red" }}>{errorFromServer ? "Error From Server" : ""}</p>
         </div>
     )
 }
-
