@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 import styles from "./favorites.module.css";
 import axios from "axios";
 
-export default function Favorites({auth,setdetails,favorites, setFavorites}) {
+export default function Favorites({auth,setDetails,favorites, setFavorites}) {
   const [redirectToDetails, setRedirectToDetails] = useState(false);
   const [favoriteLines, setFavoriteLines] = useState();
 
@@ -60,7 +60,7 @@ function online(){
             <p>{line.end}</p>
           </section>
           <button onClick={()=>{
-            setdetails(line.busLine)
+            setDetails(line.busLine)
             makeRedirectToDetails()
             }}>More Details</button>
           <button onClick={()=>{removeFromFavoriteList(line.busLine)}}>Delete From Favorites</button>

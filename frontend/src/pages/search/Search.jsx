@@ -1,52 +1,91 @@
-import axios from 'axios'
-import React, { useEffect } from 'react'
-import SearchLine from '../../components/SearchLine'
-import styles from './search.module.css'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
+import SearchBar from "../../components/SearchBar";
 
-export default function Search({ favorites, setFavorites, lines, setLines, auth }) {
+import styles from "./search.module.css";
 
-  useEffect(() => { getMostActiveLines() }, [])
+export default function Search({
+  favorites,
+  setFavorites,
+  auth,
+  lines,
+  setLines,
+  search,
+  setSearch
+}) {
+  const [redirectToDetails, setRedirectToDetails] = useState(false);
+
+  // useEffect(() => {
+  //   getMostActiveLines();
+  // }, []);
+
+  useEffect(() => {
+    getLines();
+  }, []);
 
   function getMostActiveLines() {
-    axios.get('/lines/PopularLines')
+    axios
+      .get("/PopularLines")
       .then((response) => {
-        console.log(response); setLines(response.data);
+        console.log(response);
+        setLines(response.data);
       })
-      .catch((error) => console.log(error))
+      .catch((error) => console.log(error));
   }
 
   function addToFavorites(busLine) {
     let temp = [...favorites];
     temp.push(busLine);
 
-    axios.patch(`/users/${auth.localId}`, { favorites:temp })
-      .then((response) => { setFavorites(temp) })
-      .catch(error => console.log(error.response))
+    axios
+      .patch(`/users/${auth.localId}`, { favorites: temp })
+      .then((response) => {
+        setFavorites(temp);
+      })
+      .catch((error) => console.log(error.response));
   }
+
+  const getLines = () => {
+    axios
+      .get("/lines")
+      .then((response) => {
+        console.log(response);
+        setLines(response.data);
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div>
-      <div>
-        <SearchLine />
-      </div>
+      <SearchBar
+        setSearch={setSearch}
+        getLines={getLines}
+        lines={lines}
+        search={search}
+        setRedirectToDetails={setRedirectToDetails}
+      />
       <div>
         {lines.map((line, i) => {
           return (
             <div key={i}>
               <p>{line.busLine}</p>
-              <button onClick={() => {
-                if (auth) {
-                  addToFavorites(line.busLine)
-                }
-                else {
-                  alert("please login or register")
-                }
-              }
-              }>add</button>
+              <button
+                onClick={() => {
+                  if (auth) {
+                    addToFavorites(line.busLine);
+                  } else {
+                    alert("please login or register");
+                  }
+                }}
+              >
+                add
+              </button>
             </div>
-          )
+          );
         })}
       </div>
+      {redirectToDetails ? <Redirect to="/Details"></Redirect> : null}
     </div>
-  )
+  );
 }
