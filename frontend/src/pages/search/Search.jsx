@@ -1,10 +1,5 @@
 import axios from 'axios'
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
-=======
 import React, { useEffect } from 'react'
->>>>>>> ca76da1f3c22f7423e144b68f72555279df5705e
 import SearchLine from '../../components/SearchLine'
 import styles from './search.module.css'
 
@@ -24,7 +19,7 @@ export default function Search({ favorites, setFavorites, lines, setLines, auth 
     let temp = [...favorites];
     temp.push(busLine);
 
-    axios.patch(`/users/${auth.localId}`, { favorites })
+    axios.patch(`/users/${auth.localId}`, { favorites:temp })
       .then((response) => { setFavorites(temp) })
       .catch(error => console.log(error.response))
   }

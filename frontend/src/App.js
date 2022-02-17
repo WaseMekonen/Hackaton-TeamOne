@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
   const [auth, setAuth] = useState(null);
-  const [favorites, setFavorites] = useState("");
+  const [favorites, setFavorites] = useState([]);
   const [lines, setLines] = useState([])
 
   
