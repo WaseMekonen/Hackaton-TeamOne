@@ -32,7 +32,7 @@
     background: none;
     font-weight: bold;
     font-size: medium;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .logInInput::content{
@@ -50,13 +50,13 @@
     padding-left: 6.5rem;
     margin-top: 2rem;
     font-size: larger;
-    color: white;
+    color: rgb(0, 0, 0);
     border-radius: 0.3rem;
 }
 
 a{
     text-decoration: none;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 
