@@ -5,7 +5,7 @@ router.get("", (req, res) => {
     getLines(res);
 });
 
-router.get("/:PopularLines", (req, res) => {
+router.get("/PopularLines", (req, res) => {
     getMostPopularLines(res);
 });
 

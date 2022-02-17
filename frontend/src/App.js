@@ -33,7 +33,7 @@ function App() {
         <Switch>
           <Route exact path="/Register" render={() =><Register setAuth={setAuth} />} />
           <Route exact path="/Login" render={() =><Login setAuth={setAuth} />} />
-          <Route exact path="/Search" render={() =><Search favorites={favorites} setFavorites={setFavorites} lines={lines} setLines={setLines} />} />
+          <Route exact path="/Search" render={() =><Search favorites={favorites} setFavorites={setFavorites} lines={lines} setLines={setLines} auth={auth}/>} />
           <Route exact path="/Details" render={() =><Details />} />
           <Route exact path="/Favorites" render={() =><Favorites />} />
         </Switch>

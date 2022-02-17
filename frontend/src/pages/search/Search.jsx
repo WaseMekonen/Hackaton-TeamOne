@@ -1,51 +1,49 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import SearchLine from '../../components/SearchLine'
 import styles from './search.module.css'
 
-export default function Search({ favorites, setFavorites, lines, setLines }) {
-  const [redirectToFavorites, setRedirectToFavorites] = useState(false)
+export default function Search({ favorites, setFavorites, lines, setLines, auth }) {
 
   useEffect(() => { getMostActiveLines() }, [])
 
   function getMostActiveLines() {
-    axios.get('/mostPopularLines')
+    axios.get('/lines/PopularLines')
       .then((response) => {
         console.log(response); setLines(response.data);
       })
       .catch((error) => console.log(error))
   }
 
-  // console.log(lines);
-  // function addToFavorites() {
-  //   axios.patch(`/users/localId}`,
+  function addToFavorites(busLine) {
+    let temp = [...favorites];
+    temp.push(busLine);
 
-  //)
-  //   .then((response) => { console.log(response) })
-  //   .catch(error => console.log(error.response))
-  // }
-
-  if (redirectToFavorites) {
-    return <Redirect to='/Favorites' />
+    axios.patch(`/users/${auth.localId}`, { favorites })
+      .then((response) => { setFavorites(temp) })
+      .catch(error => console.log(error.response))
   }
 
   return (
     <div>
-      <div>
-        <Link to='/Login'>Login</Link>
-        <Link to='/register'>Register</Link>
-      </div>
       <div>
         <SearchLine />
       </div>
       <div>
         {lines.map((line, i) => {
           return (
-            <>
-            <p>{line.busLine}</p>
-            <button onClick={() => setRedirectToFavorites(true)}>add</button>
-            </>
+            <div key={i}>
+              <p>{line.busLine}</p>
+              <button onClick={() => {
+                if (auth) {
+                  addToFavorites(line.busLine)
+                }
+                else {
+                  alert("please login or register")
+                }
+              }
+              }>add</button>
+            </div>
           )
         })}
       </div>
