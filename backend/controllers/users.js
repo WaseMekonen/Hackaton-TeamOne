@@ -8,11 +8,11 @@ const dbName = "esaybusy";
 const getUser = (req, res) => {
     mongoClient.connect(url, (err, db) => {
         if (err) throw err;
-        const userId = req.params.id;
+        const userId = req.params.localId;
         const database = db.db(dbName);
         database
             .collection("users")
-            .findOne({ _id: objectId(userId) }, (err, user) => {
+            .findOne({ localId: userId }, (err, user) => {
                 if (err) throw err;
                 res.status(200).send(user);
                 db.close();
@@ -40,7 +40,6 @@ const insertNewLineToUserFavorites = (req, res) => {
             )
     })
 }
-
 
 
 function deleteLineFromUserFavorites(req, res) {

@@ -1,48 +1,51 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import SearchLine from '../../components/SearchLine'
 import styles from './search.module.css'
 
-export default function Search({ favorites, setFavorites, lines, setLines }) {
-  const [redirectToFavorites, setRedirectToFavorites] = useState(false)
-  // const arr = [{ busLine: "126" }, { busLine: "6" }, { busLine: "16" }, { busLine: "12" }]
+export default function Search({ favorites, setFavorites, lines, setLines, auth }) {
 
-useEffect(() => {getMostActiveLines()}, [])
+  useEffect(() => { getMostActiveLines() }, [])
 
   function getMostActiveLines() {
-    axios.get('/lines')
+    axios.get('/lines/PopularLines')
       .then((response) => {
         console.log(response); setLines(response.data);
-        // Math.floor(Math.random() * 5)
       })
       .catch((error) => console.log(error))
   }
-  
-// console.log(lines);
-  // function addToFavorites() {
-  //   axios.patch(`/users/localId}`,
 
-  //)
-  //   .then((response) => { console.log(response) })
-  //   .catch(error => console.log(error.response))
-  // }
+  function addToFavorites(busLine) {
+    let temp = [...favorites];
+    temp.push(busLine);
 
-  if (redirectToFavorites) {
-    return <Redirect to='/Favorites' />
+    axios.patch(`/users/${auth.localId}`, { favorites:temp })
+      .then((response) => { setFavorites(temp) })
+      .catch(error => console.log(error.response))
   }
 
   return (
     <div>
       <div>
-        <Link to='/Login'>Login</Link>
-        <Link to='/register'>Register</Link>
-      </div>
-      <div>
         <SearchLine />
       </div>
       <div>
-        <p>{lines}</p>
+        {lines.map((line, i) => {
+          return (
+            <div key={i}>
+              <p>{line.busLine}</p>
+              <button onClick={() => {
+                if (auth) {
+                  addToFavorites(line.busLine)
+                }
+                else {
+                  alert("please login or register")
+                }
+              }
+              }>add</button>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

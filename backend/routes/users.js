@@ -4,9 +4,7 @@ const { getUser, insertNewLineToUserFavorites,
     insertNewUser
 } = require("../controllers/users");
 
-
-// localId
-router.get("/:id", (req, res) => {
+router.get('/:localId', (req, res) => {
     getUser(req, res);
 });
 
