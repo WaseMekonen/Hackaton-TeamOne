@@ -11,6 +11,7 @@ export default function Search({
   auth,
   lines,
   setLines,
+  setDetails,
   search,
   setSearch
 }) {
@@ -50,7 +51,7 @@ export default function Search({
     axios
       .get("/lines")
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setLines(response.data);
       })
       .catch((error) => console.log(error));
@@ -63,6 +64,7 @@ export default function Search({
         getLines={getLines}
         lines={lines}
         search={search}
+        setDetails={setDetails}
         setRedirectToDetails={setRedirectToDetails}
       />
       <div>

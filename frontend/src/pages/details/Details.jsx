@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import styles from "./details.module.css";
-import SearchBar from "../../components/SearchBar";
 
-export default function Details({ details, setSearch }) {
+export default function Details({ setDetails, setSearch, details, search }) {
   const [error, setError] = useState("");
   const [lineDetail, setLineDetail] = useState("");
 
   const getLineDetails = () => {
     setInterval(() => {
       axios
-        .get(`/lines/${details}`)
+        .get(`/lines/${details.busLine}`)
         .then((response) => {
           setLineDetail(response.data);
+          console.log(response.data);
         })
         .catch((err) => {
           setError(err);
@@ -39,41 +39,37 @@ export default function Details({ details, setSearch }) {
       <div className={styles.mainCon}>
         <section className={styles.searchCont}>
           <div className={styles.search}>
-            {/* <SearchBar
-              setSearch={setSearch}
-              lines={lines}
-              search={search}
-            /> */}
-            <input
-              type="text"
-              onChange={(e) => {
-                setSearch(Number(e.target.value));
-              }}
-            />
-            <button
-              onClick={() => {
-                getLineDetails();
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setDetails(search);
               }}
             >
-              Search
-            </button>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setSearch(Number(e.target.value));
+                }}
+              />
+              <input type="submit" value="Search" />
+            </form>
           </div>
         </section>
         <section className={styles.lineDetailsCont}>
-          <h3>Line Number:{lineDetail.busLine}</h3>
-          <h3>From {lineDetail.start}</h3>
-          <h3>To {lineDetail.end}</h3>
+          <h3>Line Number:{details.busLine}</h3>
+          <h3>From {details.start}</h3>
+          <h3>To {details.end}</h3>
           <button className={styles.ChangeDirectionBtn}>
             Change Direction
           </button>
         </section>
         <section className={styles.stationCont}>
           <h3>
-            Current Station: {lineDetail.stations[details.currentStation]}
+            {/* Current Station: {details.stations[details.currentStation]} */}
           </h3>
         </section>
         <section className={styles.mapCont}>
-          <img src={lineDetail.images[details]} alt="" />
+          {/* <img src={details.images[details]} alt="" /> */}
         </section>
         <section className={styles.statusCont}>
           <div className={styles.statusEmpty}>Empty</div>

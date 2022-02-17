@@ -64,6 +64,7 @@ function App() {
                 setFavorites={setFavorites}
                 search={search}
                 setSearch={setSearch}
+                setDetails={setDetails}
               />
             )}
           />
@@ -77,6 +78,7 @@ function App() {
                 lines={lines}
                 setSearch={setSearch}
                 setLines={setLines}
+                setDetails={setDetails}
               />
             )}
           />

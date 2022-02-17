@@ -3,6 +3,7 @@ import React from "react";
 export default function SearchBar({
   setSearch,
   getLines,
+  setDetails,
   lines,
   search,
   setRedirectToDetails,
@@ -14,13 +15,13 @@ export default function SearchBar({
         placeholder="Search..."
         onChange={(e) => setSearch(Number(e.target.value))}
       />
-      <button
+      {/* <button
         onClick={() => {
           getLines();
         }}
       >
         Search
-      </button>
+      </button> */}
       <div>
         {lines
           .filter((line) => {
@@ -32,6 +33,10 @@ export default function SearchBar({
                 key={i}
                 onClick={() => {
                   setRedirectToDetails(true);
+                  let choosenLine = lines.find((line) => {
+                   return line.busLine === search;
+                  });
+                  setDetails(choosenLine);
                 }}
               >
                 <p>{line.busLine}</p>
