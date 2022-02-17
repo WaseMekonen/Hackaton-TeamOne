@@ -60,6 +60,11 @@
   background-color: rgb(243, 243, 243);
   height: 48%;
   width: 80%;
+  border: 1px solid black;
+}
+.mapCont img{
+  width: 100%;
+  height: 100%;
 }
 .statusCont {
   background-color: rgb(114, 114, 114);
@@ -70,27 +75,26 @@
   align-items: center;
 }
 
-.statusEmpty {
-  width: 15%;
-  height: 45%;
-  background-color: green;
-  border: 1px solid black;
-}
-.statusNormal {
-  width: 15%;
-  height: 45%;
-  background-color: rgb(253, 238, 21);
-  border: 1px solid black;
-}
-.statusFull {
-  width: 15%;
-  height: 45%;
-  background-color: rgb(255, 155, 5);
-  border: 1px solid black;
-}
+.statusEmpty,
+.statusNormal,
+.statusFull,
 .statusCrowded {
   width: 15%;
   height: 45%;
+  background-color: green;
+  filter: drop-shadow(1px 1px 3px rgb(90, 67, 67));
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+  justify-content: center;
+}
+.statusNormal {
+  background-color: rgb(253, 238, 21);
+}
+.statusFull {
+  background-color: rgb(255, 155, 5);
+}
+.statusCrowded {
   background-color: rgb(255, 0, 0);
-  border: 1px solid black;
 }
