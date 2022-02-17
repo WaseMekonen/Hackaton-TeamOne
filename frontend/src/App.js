@@ -42,16 +42,11 @@ function App() {
           </>
         )}
         <Switch>
-          <Route
-            exact
-            path="/Register"
-            render={() => <Register setAuth={setAuth} />}
-          />
-          <Route
-            exact
-            path="/Login"
-            render={() => <Login setAuth={setAuth} />}
-          />
+          
+          <Route exact path="/Register" render={() =><Register setAuth={setAuth} setFavorites={setFavorites}/>} />
+          <Route exact path="/Login" render={() =><Login setAuth={setAuth} setFavorites={setFavorites}/>} />
+          <Route exact path="/Favorites" render={() =><Favorites auth={auth} setDetails={setDetails} favorites={favorites} setFavorites={setFavorites} />} />
+        
           <Route
             exact
             path="/Search"
@@ -82,11 +77,7 @@ function App() {
               />
             )}
           />
-          <Route
-            exact
-            path="/Favorites"
-            render={() => <Favorites auth={auth} />}
-          />
+          
         </Switch>
       </BrowserRouter>
     </div>

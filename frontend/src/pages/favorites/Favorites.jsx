@@ -3,78 +3,79 @@ import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 import styles from "./favorites.module.css";
 import axios from "axios";
 
-export default function Favorites({auth}) {
+export default function Favorites({auth,setDetails,favorites, setFavorites}) {
   const [redirectToDetails, setRedirectToDetails] = useState(false);
-  // const [favoriteLines, setFavoriteLines] = useState();
-  const [bg, setBg] = useState({ crowded: "red", Empty: "green" });
+  const [favoriteLines, setFavoriteLines] = useState([]);
 
 
-  if (redirectToDetails) {
-    return <Redirect to="/Details" />;
+useEffect(()=>{
+  online()
+})
+
+function online(){
+  axios.get("/lines")
+  .then(res=>{
+    let temp = [];
+    for (let i = 0; i < res.data.length; i++) {
+      if(favorites.includes(res.data[i].busLine)){
+        temp.push(res.data[i])
+      }
+    }
+    setFavoriteLines(temp)
+  })
+  .catch(err=>console.log(err))
   }
-
-
+  
   function makeRedirectToDetails() {
     setRedirectToDetails(true);
   }
-
+  
   // !! remove from favorite lines list
-  // function removeFromFavoriteList(i){
-  //   const temp=[...favoritesLines]
-  //   setFavoriteLines(temp)
-  //   temp.splice(i,1)
-  //   }
+  function removeFromFavoriteList(busLine){
+      const temp=[...favorites]
+      for (let i = 0; i < temp.length; i++) {
+        if(temp[i]===busLine){
+          temp.splice(i,1)
+          setFavorites(temp)
+          deleteFromAtlas(temp);
+          online();
+          break;
+        } 
+      }
+  }
 
-  // const lines = favoritesLines.map((line, i) => (
-  //   <div className={styles.favoritesDiv} key={i}>
-  //     <section className={styles.headers}>
-  //       <p>Bus NO. {line.num} |</p>
-  //       <p>
-  //         From: {line.from}{" "}
-  //         <img className={styles.rightArrow} src={line.imgSrc} alt="" />
-  //       </p>
-  //       <p>{line.to}</p>
-  //     </section>
-  //     <section className={styles.red} style={{ background: bg[line.crowded] }}>
-  //       <h5>CROWDED</h5>
-  //     </section>
-  //     <button onClick={makeRedirectToDetails}>More Details</button>
-  //     <button>Delete From Favorites</button>
-  //   </div>
-  // ));
+    function deleteFromAtlas(temp){
+      axios.patch(`users/delete/${auth.localId}`,{"favorites":temp})
+      .then(res=>console.log(res.data))
+      .catch(err=>console.log(err))
+    }
 
-  // switch (favoritesLines.crowded) {
-  //   case 'Normal':
-  //   className={styles.green}
-
-  // }
-
-  return (
-    <div>
+    const lines = favoriteLines.map((line, i) => (
+        <div className={styles.favoritesDiv} key={i}>
+          <section className={styles.headers}>
+            <p>Bus NO. {line.busLine} |</p>
+            <p>
+              From: {line.start}{" "}
+              <img className={styles.rightArrow} src={line.imgSrc} alt="" />
+            </p>
+            <p>To: {line.end}</p>
+          </section>
+          <button onClick={()=>{
+            setDetails(line.busLine)
+            makeRedirectToDetails()
+            }}>More Details</button>
+          <button onClick={()=>{removeFromFavoriteList(line.busLine)}}>Delete From Favorites</button>
+        </div>
+      ));
+      
+        
+        if (redirectToDetails) {
+          return <Redirect to="/Details" />;
+        }
+        return (
+          <div>
       <p>Favorites</p>
-      {/* <div className={styles.favoritesDiv}>
-        <section className={styles.headers}>
-          <p>
-            <h3>Bus NO. : XXX | </h3>
-          </p>
-          <p>
-            <h3>from: xxx | </h3>
-          </p>
-          <p>
-            <h3>To: xxx | </h3>
-          </p>
-        </section>
-        <section className={styles.crowded}>
-          <article className={styles.green}></article>
-          <article className={styles.yellow}></article>
-          <article className={styles.orange}></article>
-          <article className={styles.red}></article>
-        </section>
-        <section>
-          <button className={styles.button}>More Details</button>
-        </section> */}
-      {/* {lines} */}
+      {lines}
     </div>
-    // </div>
   );
 }
