@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import SearchLine from '../../components/SearchLine'
 import styles from './search.module.css'
 
-export default function Search({ favorites, setFavorites, lines, setLines, auth }) {
+export default function Search({ favorites, setFavorites, lines, setLines, auth, search, setSearch }) {
 
   useEffect(() => { getMostActiveLines() }, [])
 
@@ -25,14 +25,16 @@ export default function Search({ favorites, setFavorites, lines, setLines, auth 
   }
 
   return (
-    <div>
-      <div>
-        <SearchLine />
+    <div className={styles.container}>
+      <div className={styles.search}>
+        <SearchLine search={search} setSearch={setSearch} addToFavorites={addToFavorites} />
       </div>
-      <div>
+      <br></br>
+      <h3>Most active lines:</h3>
+      <div className={styles.activeLinesContainer}>
         {lines.map((line, i) => {
           return (
-            <div key={i}>
+            <div key={i} className={styles.activeLine}>
               <p>{line.busLine}</p>
               <button onClick={() => {
                 if (auth) {

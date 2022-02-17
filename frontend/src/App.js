@@ -11,6 +11,7 @@ function App() {
   const [auth, setAuth] = useState(null);
   const [favorites, setFavorites] = useState("");
   const [lines, setLines] = useState([])
+  const [search, setSearch] = useState("")
 
   return (
     <div className="App">
@@ -33,8 +34,8 @@ function App() {
         <Switch>
           <Route exact path="/Register" render={() =><Register setAuth={setAuth} />} />
           <Route exact path="/Login" render={() =><Login setAuth={setAuth} />} />
-          <Route exact path="/Search" render={() =><Search favorites={favorites} setFavorites={setFavorites} lines={lines} setLines={setLines} auth={auth}/>} />
-          <Route exact path="/Details" render={() =><Details />} />
+          <Route exact path="/Search" render={() =><Search favorites={favorites} setFavorites={setFavorites} lines={lines} setLines={setLines} auth={auth} search={search} setSearch={setSearch} />} />
+          <Route exact path="/Details" render={() =><Details search={search} setSearch={setSearch} />} />
           <Route exact path="/Favorites" render={() =><Favorites />} />
         </Switch>
       </BrowserRouter>

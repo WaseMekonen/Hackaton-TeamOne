@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    /* background-color: #e8ecff; */
+    /* background-color: #F5CF25; */
+}
+
+.search {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.activeLinesContainer {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+}
+
+.activeLine {
+margin: 1rem;
+}
