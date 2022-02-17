@@ -5,18 +5,16 @@ import axios from "axios";
 
 export default function Favorites({auth,setDetails,favorites, setFavorites}) {
   const [redirectToDetails, setRedirectToDetails] = useState(false);
-  const [favoriteLines, setFavoriteLines] = useState();
+  const [favoriteLines, setFavoriteLines] = useState([]);
 
 
 useEffect(()=>{
   online()
-},[])
+})
 
 function online(){
-  
   axios.get("/lines")
   .then(res=>{
-    console.log(res);
     let temp = [];
     for (let i = 0; i < res.data.length; i++) {
       if(favorites.includes(res.data[i].busLine)){
@@ -40,15 +38,18 @@ function online(){
           temp.splice(i,1)
           setFavorites(temp)
           deleteFromAtlas(temp);
+          online();
           break;
-        }
+        } 
       }
-      }
+  }
+
     function deleteFromAtlas(temp){
-      axios.patch(`users/delete/:${auth.localId}`,{favorites:temp})
+      axios.patch(`users/delete/${auth.localId}`,{"favorites":temp})
       .then(res=>console.log(res.data))
       .catch(err=>console.log(err))
     }
+
     const lines = favoriteLines.map((line, i) => (
         <div className={styles.favoritesDiv} key={i}>
           <section className={styles.headers}>
@@ -57,7 +58,7 @@ function online(){
               From: {line.start}{" "}
               <img className={styles.rightArrow} src={line.imgSrc} alt="" />
             </p>
-            <p>{line.end}</p>
+            <p>To: {line.end}</p>
           </section>
           <button onClick={()=>{
             setDetails(line.busLine)
