@@ -1,4 +1,5 @@
 import React from "react";
+import styles from './searchBar.module.css'
 
 export default function SearchBar({
   setSearch,
@@ -9,7 +10,7 @@ export default function SearchBar({
   setRedirectToDetails,
 }) {
   return (
-    <div>
+    <div className={styles.container} >
       <input
         type="text"
         placeholder="Search..."

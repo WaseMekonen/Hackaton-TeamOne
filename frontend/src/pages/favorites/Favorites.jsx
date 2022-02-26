@@ -73,8 +73,8 @@ function online(){
           return <Redirect to="/Details" />;
         }
         return (
-          <div>
-      <p>Favorites</p>
+          <div><br></br><br></br><br></br><br></br>
+      <h1>Favorites</h1>
       {lines}
     </div>
   );

@@ -4,9 +4,10 @@
   padding: 0;
 }
 .DetailsPage {
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('../../../public/media/images/4.jpg');
   width: 100vw;
-  height: 1000px;
-  background-color: rgb(158, 104, 104);
+  height: 900px;
+  /* background-color: rgb(158, 104, 104); */
   display: flex;
   justify-content: center;
   align-items: center;

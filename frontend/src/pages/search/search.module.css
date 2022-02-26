@@ -1,0 +1,28 @@
+.searchContainer {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.7)), url('../../../public/media/images/4.jpg');
+    /* background-color: rgba(248, 248, 61, 0.842); */
+    /* filter: brightness(0.4); */
+    color: white;
+    height: 39.5rem;
+}
+
+
+.searchBar {
+    /* background-color: lightyellow; */
+}
+
+.lines {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    /* align-content: space-around; */
+}
+
+.section {
+    margin: 1rem;
+}
+
+.btnImg {
+    width: 2rem;
+    cursor: pointer;
+}
