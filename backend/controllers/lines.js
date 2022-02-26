@@ -42,7 +42,6 @@ const getMostPopularLines = (res) => {
 };
 
 const getLine = (res, req) => {
-  console.log({ "busLine": Number(req.params.busLine) });
   const userLineChoice = { "busLine": Number(req.params.busLine) }
   mongoClient.connect(url, (err, db) => {
     if (err) {
@@ -54,7 +53,6 @@ const getLine = (res, req) => {
       .findOne(userLineChoice, function (err, line) {
         if (err) throw err;
         res.send(line);
-        // console.log(line);
         db.close();
       });
   });

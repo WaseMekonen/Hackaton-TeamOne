@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import styles from "./details.module.css";
 
 export default function Details({ setDetails, setSearch, details, search }) {
@@ -12,20 +11,16 @@ export default function Details({ setDetails, setSearch, details, search }) {
   const [red, setRed] = useState("");
 
   useEffect(() => {
-    isBusCrowded(details.numOfPassenger);
     getLineDetails();
-  },[]);
+  }, []);
 
   const getLineDetails = () => {
     setInterval(() => {
-      console.log("test1:", details.busLine);
       axios
         .get(`/lines/${Number(details.busLine)}`)
         .then((response) => {
-          console.log("test2:", details.busLine);
-
-          setDetails(response.data.busLine);
-          console.log("mmm", response.data);
+          isBusCrowded(response.data.numOfPassenger);
+          setDetails(response.data);
         })
         .catch((err) => {
           setError(err);
@@ -34,15 +29,26 @@ export default function Details({ setDetails, setSearch, details, search }) {
   };
 
   const isBusCrowded = (numOfPassenger) => {
-    console.log({ numOfPassenger });
     if (numOfPassenger <= 12) {
-      setGreen("Bus is Empty");
+      setGreen("Choose a seat and enjoy the ride");
+      setRed("");
+      setYellow("");
+      setOrange("");
     } else if (numOfPassenger <= 25) {
-      setYellow("Bus is Normal");
+      setYellow("Luckily half an empty bus");
+      setRed("");
+      setGreen("");
+      setOrange("");
     } else if (numOfPassenger < 37) {
-      setOrange("Bus is Full");
+      setOrange("Forget the seats on this trip");
+      setRed("");
+      setGreen("");
+      setYellow("");
     } else {
-      setRed("Bus is Crowded");
+      setRed("Get ready to stand for distances");
+      setYellow("");
+      setGreen("");
+      setOrange("");
     }
   };
 
@@ -68,20 +74,20 @@ export default function Details({ setDetails, setSearch, details, search }) {
           </div>
         </section>
         <section className={styles.lineDetailsCont}>
-          <h3>Line Number:{details.busLine}</h3>
-          <h3>From {details.start}</h3>
-          <h3>To {details.end}</h3>
+          <h3>Line Number: {details.busLine}</h3>
+          <h3>From: {details.start}</h3>
+          <h3>To: {details.end}</h3>
           <button className={styles.ChangeDirectionBtn}>
             Change Direction
           </button>
         </section>
         <section className={styles.stationCont}>
           <h3>
-            {/* Current Station: {details.stations[details.currentStation]} */}
+            Current Station: {details.stations[details.currentStation]}
           </h3>
         </section>
         <section className={styles.mapCont}>
-          {/* <img src={details.images[details]} alt="" /> */}
+          <img src={details.images[2]} alt="Current station map" />
         </section>
         <section className={styles.statusCont}>
           <div className={styles.statusEmpty}>{green}</div>

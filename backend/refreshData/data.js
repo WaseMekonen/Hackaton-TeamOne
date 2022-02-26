@@ -9,8 +9,8 @@ const dbName = "esaybusy";
 let data;
 
 
-const getAllLines = ()=>{
-  
+const getAllLines = () => {
+
   mongoClient.connect(url, (err, db) => {
     if (err) {
       console.log(err);
@@ -21,45 +21,45 @@ const getAllLines = ()=>{
       .find({})
       .toArray(function (err, lines) {
         if (err) throw err;
-        data=lines;
+        data = lines;
         liveUpdate();
         db.close();
       });
   });
 }
 
-function liveUpdate(){
- 
+function liveUpdate() {
 
-  const shafel = setInterval(()=>{
+
+  const shafel = setInterval(() => {
 
     for (let i = 0; i < data.length; i++) {
-      data[i].numOfPassenger = Math.floor((Math.random() * 55)+0)
+      data[i].numOfPassenger = Math.floor((Math.random() * 55) + 0)
       data[i].currentStation++
-      if(data[i].currentStation>4){
+      if (data[i].currentStation > 4) {
         data[i].currentStation = 0;
       }
     }
 
     for (let i = 0; i < data.length; i++) {
-      mongoClient.connect(url, function(err, db) {
+      mongoClient.connect(url, function (err, db) {
         if (err) throw err;
         let dbo = db.db(dbName);
-        let myquery = { busLine: data[i].busLine };
-        let newvalues = { $set: {currentStation:data[i].currentStation, numOfPassenger:data[i].numOfPassenger } };
-        dbo.collection("lines").updateOne(myquery, newvalues, function(err, res) {
+        let myQuery = { busLine: data[i].busLine };
+        let newValues = { $set: { currentStation: data[i].currentStation, numOfPassenger: data[i].numOfPassenger } };
+        dbo.collection("lines").updateOne(myQuery, newValues, function (err, res) {
           if (err) throw err;
           console.log(data[i]);
           db.close();
         });
       });
     }
-    },10000)
+  }, 10000)
 
 
 }
 
 
 module.exports = {
-  getAllLines,  
-  }
+  getAllLines,
+}
