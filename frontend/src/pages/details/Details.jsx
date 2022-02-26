@@ -77,14 +77,10 @@ export default function Details({ setDetails, setSearch, details, search }) {
           <h3>Line Number: {details.busLine}</h3>
           <h3>From: {details.start}</h3>
           <h3>To: {details.end}</h3>
-          <button className={styles.ChangeDirectionBtn}>
-            Change Direction
-          </button>
+          <button className={styles.ChangeDirectionBtn}>Change Direction</button>
         </section>
         <section className={styles.stationCont}>
-          <h3>
-            Current Station: {details.stations[details.currentStation]}
-          </h3>
+          <h3>Current Station: {details.stations[details.currentStation]}</h3>
         </section>
         <section className={styles.mapCont}>
           <img src={details.images[2]} alt="Current station map" />
