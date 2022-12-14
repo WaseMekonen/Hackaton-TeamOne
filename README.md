@@ -1,1 +1,1 @@
-# Kando Hackaton - Easy Busy app
+# Kando Hackaton - "Easy Busy" app
