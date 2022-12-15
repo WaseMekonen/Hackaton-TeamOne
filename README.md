@@ -1,1 +1,1 @@
-# Hackaton-TeamOne
+# Kando Hackaton - "Easy Busy" app
