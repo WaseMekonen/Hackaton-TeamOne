@@ -25,6 +25,7 @@ function App() {
               <Link to="/Favorites">Favorites</Link>
               <Link to="/Details">Details</Link>
               <button
+                className="logOut"
                 title="Log out"
                 onClick={() => {
                   setAuth(null);
@@ -38,13 +39,19 @@ function App() {
             <>
               <Link to="/Register">Register</Link>
               <Link to="/Login">Login</Link>
-              <Link to="/Search">Search</Link>
-              <Link to="/Details">Details</Link>
+              {/* <Link to="/Search">Search</Link> */}
+              {/* <Link to="/Details">Details</Link> */}
             </>
           )}
         </nav>
+        <div className="container">
+        <img className="home-img" src="/media/images/8493.jpg"/>
+            <div className="content">
+        <h1>EasyBusy</h1>
+        <p>Get bus times, maps, and real-time arrival information with ease so that you can plan your trip with confidence.</p>
+          </div>
+        </div>
         <Switch>
-
           <Route exact path="/Register" render={() => <Register setAuth={setAuth} setFavorites={setFavorites} />} />
           <Route exact path="/Login" render={() => <Login setAuth={setAuth} setFavorites={setFavorites} />} />
           <Route exact path="/Favorites" render={() => <Favorites auth={auth} setDetails={setDetails} favorites={favorites} setFavorites={setFavorites} />} />
